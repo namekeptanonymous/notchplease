@@ -1,0 +1,36 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "org.nka.notchplease.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "client": [
+    "client.gui.hud.BossBarHudMixin",
+    "client.gui.hud.DebugHudMixin",
+    "client.gui.screen.ScreenMixin",
+    "client.gui.screen.StatsScreenMixin",
+    "client.gui.screen.advancement.AdvancementsScreenMixin",
+    "client.gui.screen.option.CreditsAndAttributionScreenMixin",
+    "client.gui.screen.option.GameOptionsScreenMixin",
+    "client.gui.screen.option.KeybindsScreenMixin",
+    "client.gui.screen.option.LanguageOptionsScreenMixin",
+    "client.gui.screen.option.OptionsScreenMixin",
+    "client.gui.screen.option.TelemetryInfoScreenMixin",
+    "client.gui.screen.pack.PackScreenMixin",
+    "client.gui.screen.world.CustomizeBuffetLevelScreenMixin",
+    "client.gui.screen.world.CustomizeFlatLevelScreenMixin",
+    "client.gui.screen.world.EditGameRulesScreenMixin",
+    "client.gui.screen.world.EditWorldScreenMixin",
+    "client.gui.screen.world.ExperimentsScreenMixin",
+    "client.gui.screen.world.PresetsScreenMixin",
+    "client.gui.screen.world.SelectWorldScreenMixin",
+    "client.gui.widget.TabNavigationWidgetMixin",
+    "client.realms.gui.screen.RealmsPendingInvitesScreenMixin",
+    "client.realms.gui.screen.RealmsMainScreenMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  }
+}
