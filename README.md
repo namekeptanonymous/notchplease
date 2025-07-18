@@ -2,7 +2,7 @@
 
 # Notch, Please!
 
-A simple Fabric mod for Minecraft 1.21.4-7 that aims to make vanilla UI elements fit better on Apple's notched MacBooks when in fullscreen mode.
+A simple Fabric mod for Minecraft 1.21.4-7 that aims to make *vanilla* UI elements fit better on Apple's notched MacBooks when in fullscreen mode.
 
 ![pack-diff-s](https://github.com/user-attachments/assets/747db53a-52d4-42c1-b66f-218aadb4e0e2)
 
@@ -10,7 +10,7 @@ A simple Fabric mod for Minecraft 1.21.4-7 that aims to make vanilla UI elements
 
 ### 📥 Downloads
 
-The latest releases of Notch, Please! can be downloaded [from the releases page](https://github.com/namekeptanonymous/notchplease/releases).
+The latest releases of Notch, Please! can be downloaded [from the releases page](https://github.com/namekeptanonymous/notchplease/releases) or at [Modrinth](https://modrinth.com/mod/notch-please!).
 
 ### 🖥️ Installation
 
