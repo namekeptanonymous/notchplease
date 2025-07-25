@@ -4,6 +4,7 @@ import net.minecraft.client.gui.Drawable;
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.screen.Screen;
 import org.spongepowered.asm.mixin.*;
+import org.spongepowered.asm.mixin.injection.Redirect;
 
 import java.util.List;
 
