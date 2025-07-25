@@ -1,12 +1,8 @@
 package org.nka.notchplease.mixin.client.gui.screen.option;
 
-import net.minecraft.client.gui.screen.option.OnlineOptionsScreen;
 import net.minecraft.client.gui.screen.option.OptionsScreen;
-import net.minecraft.client.gui.screen.option.TelemetryInfoScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.ThreePartsLayoutWidget;
-import net.minecraft.screen.ScreenTexts;
-import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -15,7 +11,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import static org.nka.notchplease.Notchplease.getScaledNotchHeight;
-//import static org.nka.notchplease.Notchplease.toggleNativeFullscreen;
 
 @Mixin(OptionsScreen.class)
 public class OptionsScreenMixin {

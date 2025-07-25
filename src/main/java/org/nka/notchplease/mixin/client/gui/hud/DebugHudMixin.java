@@ -12,20 +12,20 @@ import static org.nka.notchplease.Notchplease.getScaledNotchHeight;
 @Mixin(value = DebugHud.class)
 public class DebugHudMixin {
     // for 1.21.4-5
-    // @Redirect(
-    //         method = "drawText",
-    //         at = @At(
-    //                 value = "INVOKE",
-    //                 target = "Lnet/minecraft/client/gui/DrawContext;drawText(Lnet/minecraft/client/font/TextRenderer;Ljava/lang/String;IIIZ)I"
-    //         )
-    // )
-    // private int redirectText_int(DrawContext context, TextRenderer renderer, String text, int x, int y, int color, boolean shadow) {
-    //     int notchHeight = getScaledNotchHeight();
-    //     if (notchHeight == -1) {
-    //         return context.drawText(renderer, text, x, y, color, shadow);
-    //     }
-    //     return context.drawText(renderer, text, x, y + notchHeight, color, shadow);
-    // }
+//    @Redirect(
+//            method = "drawText",
+//            at = @At(
+//                    value = "INVOKE",
+//                    target = "Lnet/minecraft/client/gui/DrawContext;drawText(Lnet/minecraft/client/font/TextRenderer;Ljava/lang/String;IIIZ)I"
+//            )
+//    )
+//    private int redirectText_int(DrawContext context, TextRenderer renderer, String text, int x, int y, int color, boolean shadow) {
+//        int notchHeight = getScaledNotchHeight();
+//        if (notchHeight == -1) {
+//            return context.drawText(renderer, text, x, y, color, shadow);
+//        }
+//        return context.drawText(renderer, text, x, y + notchHeight, color, shadow);
+//    }
 
     // for 1.21.6-8
     @Redirect(

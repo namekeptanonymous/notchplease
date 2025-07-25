@@ -3,7 +3,6 @@ package org.nka.notchplease.mixin.client.gui.screen.option;
 import net.minecraft.client.gui.screen.option.TelemetryEventWidget;
 import net.minecraft.client.gui.screen.option.TelemetryInfoScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.widget.OptionListWidget;
 import net.minecraft.client.gui.widget.ThreePartsLayoutWidget;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
