@@ -38,3 +38,5 @@ Notch, Please! uses the [Gradle build tool](https://gradle.org/) and can be buil
 ## 📜 License
 
 Except where otherwise stated, the content of this repository is provided under the [GPL v3](LICENSE) license by [namekeptanonymous](https://www.namekeptanonymous.me/).
+
+<a href="https://buymeacoffee.com/justalilguy"><img alt="buymeacoffee-singular" height="56" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/donate/buymeacoffee-singular_vector.svg"></a>
