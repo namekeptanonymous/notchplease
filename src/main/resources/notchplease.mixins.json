@@ -6,9 +6,20 @@
   "client": [
     "client.gui.hud.BossBarHudMixin",
     "client.gui.hud.DebugHudMixin",
+    "client.gui.hud.PlayerListHudMixin",
     "client.gui.screen.ScreenMixin",
+    "client.gui.screen.SplashTextRendererMixin",
     "client.gui.screen.StatsScreenMixin",
+    "client.gui.screen.TitleScreenMixin",
     "client.gui.screen.advancement.AdvancementsScreenMixin",
+    "client.gui.screen.ingame.BookEditScreenMixin",
+    "client.gui.screen.ingame.BookScreenMixin",
+    "client.gui.screen.ingame.BookSigningScreenMixin",
+    "client.gui.screen.ingame.LecternScreenMixin",
+    "client.gui.screen.multiplayer.AddServerScreenMixin",
+    "client.gui.screen.multiplayer.DirectConnectScreenMixin",
+    "client.gui.screen.multiplayer.MultiplayerScreenMixin",
+    "client.gui.screen.multiplayer.SocialInteractionsScreenMixin",
     "client.gui.screen.option.CreditsAndAttributionScreenMixin",
     "client.gui.screen.option.GameOptionsScreenMixin",
     "client.gui.screen.option.KeybindsScreenMixin",
@@ -24,8 +35,8 @@
     "client.gui.screen.world.PresetsScreenMixin",
     "client.gui.screen.world.SelectWorldScreenMixin",
     "client.gui.widget.TabNavigationWidgetMixin",
-    "client.realms.gui.screen.RealmsPendingInvitesScreenMixin",
-    "client.realms.gui.screen.RealmsMainScreenMixin"
+    "client.realms.gui.screen.RealmsMainScreenMixin",
+    "client.realms.gui.screen.RealmsPendingInvitesScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1
