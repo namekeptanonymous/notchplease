@@ -2,7 +2,6 @@ package org.nka.notchplease;
 
 import com.sun.jna.Library;
 import com.sun.jna.Native;
-import com.sun.jna.Pointer;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.minecraft.client.MinecraftClient;
@@ -10,7 +9,6 @@ import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWNativeCocoa;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.spongepowered.asm.mixin.Unique;
-import org.lwjgl.system.macosx.*;
 
 import java.util.ArrayList;
 
@@ -19,20 +17,33 @@ import static org.lwjgl.opengl.GL11.*;
 public class Notchplease implements ClientModInitializer {
     static String gpuName;
     static boolean isAppleSilicon = false;
+    static boolean isMacOS = false;
+
+    // Initializing isMacOS - checking if system is on macOS or not
+    static {
+        String osName = System.getProperty("os.name").toLowerCase();
+        if (osName.contains("mac")) {
+            System.out.println("Notch, Please! macOS detected.");
+            isMacOS = true;
+        } else {
+            System.out.println("Notch, Please! Non-macOS system detected. No changes will be made.");
+        }
+    }
 
     public static ArrayList<Integer> resolutionHeights = new ArrayList<>();
 
     @Override
     public void onInitializeClient() {
         ClientLifecycleEvents.CLIENT_STARTED.register(client -> {
-            gpuName = glGetString(GL_RENDERER);
-            if (gpuName != null && gpuName.contains("Apple")) {
-                isAppleSilicon = true;
+            if (isMacOS) {
+                gpuName = glGetString(GL_RENDERER);
+                isAppleSilicon = gpuName != null && gpuName.contains("Apple");
             }
         });
     }
 
     public static boolean listAvailableResolutions() {
+        if (!isMacOS || !isAppleSilicon) return false;
         resolutionHeights = new ArrayList<>();
         long window = MinecraftClient.getInstance().getWindow().getHandle();
         long monitor = GLFW.glfwGetWindowMonitor(window);
@@ -63,7 +74,7 @@ public class Notchplease implements ClientModInitializer {
 
     @Unique
     public static int getScaledNotchHeight() {
-        if (!listAvailableResolutions()) return -1;
+        if (!isMacOS || !isAppleSilicon || !listAvailableResolutions()) return -1;
         int currentHeight = MinecraftClient.getInstance().getWindow().getHeight();
         boolean isFullScreen = MinecraftClient.getInstance().getWindow().isFullscreen();
         double currentScale = MinecraftClient.getInstance().getWindow().getScaleFactor();
@@ -71,10 +82,21 @@ public class Notchplease implements ClientModInitializer {
         // if resolution is not set to show notch
         if (currentHeight % 10 == 0 || resolutionHeights == null || !isFullScreen || !isAppleSilicon) return -1;
 
+        int rawNotchHeight = getRawNotchHeight(currentHeight);
+
+        // check to see if height diff = typical notch height in px, not something crazy
+        if (rawNotchHeight > 200 || rawNotchHeight < 0) {
+//            System.out.println("Notch, Please! There was an error calculating the notch height. Does your current display have a notch?");
+            return -1;
+        }
+        return (int) (rawNotchHeight / currentScale);
+    }
+
+    private static int getRawNotchHeight(int currentHeight) {
         int closestNonNotchedHeight = Integer.MIN_VALUE;
         int closestHeightDiff = Integer.MAX_VALUE;
 
-        int currentHeightDiff = Integer.MIN_VALUE;
+        int currentHeightDiff;
         for (Integer height : resolutionHeights) {
             currentHeightDiff = Math.abs(currentHeight - height);
             if (height < currentHeight && currentHeightDiff < closestHeightDiff) {
@@ -83,14 +105,7 @@ public class Notchplease implements ClientModInitializer {
             }
         }
 
-        int rawNotchHeight = currentHeight - closestNonNotchedHeight;
-
-        // check to see if height diff = typical notch height in px, not something crazy
-        if (rawNotchHeight > 200 || rawNotchHeight < 0) {
-//            System.out.println("Notch, Please! There was an error calculating the notch height. Does your current display have a notch?");
-            return -1;
-        }
-        return (int) (rawNotchHeight / currentScale);
+        return currentHeight - closestNonNotchedHeight;
     }
 
     public interface CoreGraphics extends Library {
