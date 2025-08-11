@@ -10,13 +10,16 @@ A simple Fabric mod for Minecraft 1.21.4 – 1.21.8 that aims to make *vanilla* 
 
 ### 📥 Downloads
 
-The latest releases of Notch, Please! can be downloaded [from the releases page](https://github.com/namekeptanonymous/notchplease/releases) or at [Modrinth](https://modrinth.com/mod/notch-please!).
+The latest releases of Notch, Please! can be downloaded [from the releases page](https://github.com/namekeptanonymous/notchplease/releases), [Modrinth](https://modrinth.com/mod/notch-please!), or [CurseForge](https://curseforge.com/minecraft/mc-mods/notch-please).
+
+<a href="https://modrinth.com/mod/notch-please!"><img alt="modrinth" height="56" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/available/modrinth_64h.png"></a>
+<a href="https://curseforge.com/minecraft/mc-mods/notch-please"><img alt="curseforge" height="56" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/available/curseforge_64h.png" style="margin-left: 0.1rem"></a>
 
 ### 🖥️ Installation
 
-Notch, Please! requires the [_Fabric_ mod loader](https://fabricmc.net/).
+Notch, Please! requires the [_Fabric_ mod loader](https://fabricmc.net/) & the [Fabric API](https://modrinth.com/mod/fabric-api/).
 
-Notch, Please! is designed for MacBooks with display notches (M1 Pro, M2 and later). It will **not** work with other operating systems and may cause crashes if used elsewhere.
+Notch, Please! is designed specifically for MacBooks with display notches (M1 Pro, M2 and later) running macOS.
 
 ### 🔧 Usage
 
@@ -38,3 +41,5 @@ Notch, Please! uses the [Gradle build tool](https://gradle.org/) and can be buil
 ## 📜 License
 
 Except where otherwise stated, the content of this repository is provided under the [GPL v3](LICENSE) license by [namekeptanonymous](https://www.namekeptanonymous.me/).
+
+<a href="https://buymeacoffee.com/justalilguy"><img alt="buymeacoffee-singular" height="56" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/donate/buymeacoffee-singular_vector.svg"></a>
