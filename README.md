@@ -17,7 +17,7 @@ The latest releases of Notch, Please! can be downloaded [from the releases page]
 
 ### 🖥️ Installation
 
-Notch, Please! requires the [_Fabric_ mod loader](https://fabricmc.net/).
+Notch, Please! requires the [_Fabric_ mod loader](https://fabricmc.net/) & the [Fabric API](https://modrinth.com/mod/fabric-api/).
 
 Notch, Please! is designed specifically for MacBooks with display notches (M1 Pro, M2 and later) running macOS.
 
