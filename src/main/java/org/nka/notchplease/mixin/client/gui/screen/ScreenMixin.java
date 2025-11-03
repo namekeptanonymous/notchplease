@@ -11,6 +11,8 @@ public abstract class ScreenMixin {
     @Mutable
     @Shadow @Final private final List<Element> children;
 
+    @Shadow public int width;
+
     protected ScreenMixin(List<Element> children) {
         this.children = children;
     }

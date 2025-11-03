@@ -23,22 +23,14 @@ public class OptionsScreenMixin {
         int notchHeight = getScaledNotchHeight();
         if (notchHeight == -1) return;
         this.layout.forEachChild((element) -> {
-            System.out.println("all: " + element + " " + element.getMessage());
+//            System.out.println("all: " + element + " " + element.getMessage());
             if (!(element instanceof ButtonWidget)
                     || element.getMessage().toString().contains("difficulty")
                     || element.getMessage().toString().contains("online"))
             {
-                System.out.println("caught: " + element + element.getMessage());
+//                System.out.println("caught: " + element + element.getMessage());
                 element.setY(element.getY() + notchHeight);
             }
         });
-
-        // might add a button to enable proper notched fullscreen
-        //        ButtonWidget buttonWidget = ButtonWidget.builder(
-        //                Text.of("Toggle Notched Fullscreen"),
-        //                (button) -> toggleNativeFullscreen())
-        //            .width(150)
-        //            .build();
-        //        this.layout.addFooter(ButtonWidget.builder(Text.of("Toggle Notched Fullscreen"), (button) -> toggleNativeFullscreen()).width(200).build());
     }
 }

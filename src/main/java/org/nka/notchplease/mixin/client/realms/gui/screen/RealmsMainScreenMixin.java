@@ -26,7 +26,7 @@ public class RealmsMainScreenMixin {
         if (notchHeight == -1) return;
         if (this.layout != null) {
             this.layout.forEachChild((element) -> {
-                System.out.println("all: " + element + " " + element.getMessage());
+//                System.out.println("all: " + element + " " + element.getMessage());
                 if (!(element instanceof ButtonWidget)
                         || element.getMessage().toString().contains("invites")
                         || element.getMessage().toString().contains("news"))

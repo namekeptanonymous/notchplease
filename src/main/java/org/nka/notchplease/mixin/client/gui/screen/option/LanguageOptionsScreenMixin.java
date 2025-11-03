@@ -16,7 +16,7 @@ public class LanguageOptionsScreenMixin extends GameOptionsScreenMixin {
         int notchHeight = getScaledNotchHeight();
         if (notchHeight == -1) return;
         this.layout.forEachChild((element) -> {
-            System.out.println("all: " + element + " " + element.getMessage());
+//            System.out.println("all: " + element + " " + element.getMessage());
             if (element.toString().contains("$") && element.getMessage().toString().contains("empty")) {
                 element.setY(element.getY() + notchHeight);
                 element.setHeight(element.getHeight() - notchHeight);

@@ -24,7 +24,7 @@ public class TelemetryInfoScreenMixin {
         int notchHeight = getScaledNotchHeight();
         if (notchHeight == -1) return;
         this.layout.forEachChild((element) -> {
-            System.out.println("all: " + element + " " + element.getMessage());
+//            System.out.println("all: " + element + " " + element.getMessage());
             if (!element.getMessage().toString().contains("telemetry.button")
                     && (
                             !(element instanceof ButtonWidget)

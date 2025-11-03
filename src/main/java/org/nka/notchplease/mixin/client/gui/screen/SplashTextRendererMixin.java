@@ -24,7 +24,7 @@ public class SplashTextRendererMixin {
 //        return originalY + notchHeight;
 //    }
 
-    // for 1.21.6-8
+    // for 1.21.6-10
     @ModifyArg(
             method = "render",
             at = @At(

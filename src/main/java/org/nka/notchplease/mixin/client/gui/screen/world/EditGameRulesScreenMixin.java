@@ -27,7 +27,7 @@ public class EditGameRulesScreenMixin {
             if (!(element instanceof ButtonWidget))
             {
                 element.setY(element.getY() + notchHeight);
-                System.out.println("caught: " + element + " " + element.getMessage());
+//                System.out.println("caught: " + element + " " + element.getMessage());
                 if (element instanceof EditGameRulesScreen.RuleListWidget) {
                     element.setHeight(element.getHeight() - notchHeight);
                 }

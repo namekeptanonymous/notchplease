@@ -27,7 +27,7 @@ public class CustomizeFlatLevelScreenMixin {
                 if (!(element instanceof ButtonWidget))
                 {
                     element.setY(element.getY() + notchHeight);
-                    System.out.println("caught: " + element + " " + element.getMessage());
+//                    System.out.println("caught: " + element + " " + element.getMessage());
                     if (element.toString().contains("$") && element.getMessage().toString().contains("empty")) {
                         element.setHeight(element.getHeight() - notchHeight);
                     }

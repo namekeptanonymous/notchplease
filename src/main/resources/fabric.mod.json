@@ -3,7 +3,7 @@
   "id": "notchplease",
   "version": "${version}",
   "name": "Notch, Please!",
-  "description": "A simple Fabric mod for Minecraft 1.21.4-1.21.8 that aims to make UI elements fit better on Apple's notched MacBooks.",
+  "description": "A simple Fabric mod for Minecraft 1.21.4-1.21.10 that aims to make UI elements fit better on Apple's notched MacBooks.",
   "authors": ["namekeptanonymous"],
   "contact": {
     "sources": "https://github.com/namekeptanonymous/notchplease"
@@ -21,7 +21,7 @@
   ],
   "depends": {
     "fabricloader": ">=0.16.14",
-    "minecraft": ">=1.21.6 <=1.21.8",
+    "minecraft": ">=1.21.9 <=1.21.10",
     "fabric": "*"
   },
   "breaks": {

@@ -26,14 +26,13 @@ public class PresetsScreenMixin extends ScreenMixin {
     }
 
     @Inject(method = "init", at = @At("TAIL"))
-    private void afterInit(CallbackInfo ci) {
+    protected void afterInit(CallbackInfo ci) {
         int notchHeight = getScaledNotchHeight();
         if (notchHeight == -1) return;
 
         for (Element element : this.getChildren()) {
             if (element instanceof ClickableWidget w && !(element instanceof ButtonWidget)) {
                 w.setY(w.getY() + notchHeight);
-                System.out.println("caught: " + w + " " + w.getMessage());
                 if (w.toString().contains("$") && w.getMessage().toString().contains("empty")) {
                     w.setHeight(w.getHeight() - notchHeight);
                 }
