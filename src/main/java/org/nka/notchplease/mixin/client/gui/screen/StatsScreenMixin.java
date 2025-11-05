@@ -36,6 +36,7 @@ public class StatsScreenMixin {
         if (this.selectedList != null) {
             this.selectedList.setY(this.selectedList.getY() + notchHeight);
             this.selectedList.setHeight(this.selectedList.getHeight() - notchHeight);
+            this.selectedList.setScrollY(0);
         }
     }
 }

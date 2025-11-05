@@ -27,9 +27,6 @@ import static org.nka.notchplease.Notchplease.getScaledNotchHeight;
 
 @Mixin(MultiplayerScreen.class)
 public class MultiplayerScreenMixin extends ScreenMixin {
-    @Shadow
-    @Final
-    private ThreePartsLayoutWidget field_62178;
 
     // for 1.21.6-8
 //    @Redirect(
@@ -105,6 +102,7 @@ public class MultiplayerScreenMixin extends ScreenMixin {
             if (e instanceof MultiplayerServerListWidget list) {
                 list.setY(list.getY() + notchHeight);
                 list.setHeight(list.getHeight() - notchHeight);
+                list.setScrollY(0);
             }
         }
     }

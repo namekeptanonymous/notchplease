@@ -84,6 +84,7 @@ public class SelectWorldScreenMixin extends ScreenMixin {
             if (e instanceof WorldListWidget list) {
                 list.setY(list.getY() + notchHeight);
                 list.setHeight(list.getHeight() - notchHeight);
+                list.setScrollY(0);
             }
         }
     }

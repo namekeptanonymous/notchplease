@@ -40,5 +40,7 @@ public abstract class PackScreenMixin {
         });
         this.availablePackList.setHeight(this.availablePackList.getHeight() - notchHeight);
         this.selectedPackList.setHeight(this.selectedPackList.getHeight() - notchHeight);
+        this.availablePackList.setScrollY(0);
+        this.selectedPackList.setScrollY(0);
     }
 }

@@ -153,7 +153,7 @@ public class BookEditScreenMixin {
 //        return originalY - notchHeight;
 //    }
 
-    // for 1.21.6-8
+    // for 1.21.6-10
     @Redirect(
             method = "render",
             at = @At(

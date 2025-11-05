@@ -23,12 +23,10 @@ public class OptionsScreenMixin {
         int notchHeight = getScaledNotchHeight();
         if (notchHeight == -1) return;
         this.layout.forEachChild((element) -> {
-//            System.out.println("all: " + element + " " + element.getMessage());
             if (!(element instanceof ButtonWidget)
                     || element.getMessage().toString().contains("difficulty")
                     || element.getMessage().toString().contains("online"))
             {
-//                System.out.println("caught: " + element + element.getMessage());
                 element.setY(element.getY() + notchHeight);
             }
         });

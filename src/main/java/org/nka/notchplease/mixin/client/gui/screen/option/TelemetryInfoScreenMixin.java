@@ -33,8 +33,9 @@ public class TelemetryInfoScreenMixin {
                     ))
             {
                 element.setY(element.getY() + notchHeight);
-                if (element instanceof TelemetryEventWidget) {
-                    element.setHeight(element.getHeight() - notchHeight);
+                if (element instanceof TelemetryEventWidget tew) {
+                    tew.setHeight(tew.getHeight() - notchHeight);
+                    tew.setScrollY(0);
                 }
             }
         });

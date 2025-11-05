@@ -28,5 +28,6 @@ public class KeybindsScreenMixin extends GameOptionsScreenMixin {
         });
         this.controlsList.setY(this.controlsList.getY() + notchHeight);
         this.controlsList.setHeight(this.controlsList.getHeight() - notchHeight);
+        this.controlsList.setScrollY(0);
     }
 }

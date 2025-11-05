@@ -27,7 +27,7 @@ public class DebugHudMixin {
 //        return context.drawText(renderer, text, x, y + notchHeight, color, shadow);
 //    }
 
-    // for 1.21.6-8
+    // for 1.21.6-10
     @Redirect(
             method = "drawText",
             at = @At(

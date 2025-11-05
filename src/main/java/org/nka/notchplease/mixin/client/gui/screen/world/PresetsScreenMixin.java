@@ -4,6 +4,7 @@ import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.screen.world.PresetsScreen;
+import net.minecraft.client.gui.widget.AlwaysSelectedEntryListWidget;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.text.Text;
@@ -33,8 +34,9 @@ public class PresetsScreenMixin extends ScreenMixin {
         for (Element element : this.getChildren()) {
             if (element instanceof ClickableWidget w && !(element instanceof ButtonWidget)) {
                 w.setY(w.getY() + notchHeight);
-                if (w.toString().contains("$") && w.getMessage().toString().contains("empty")) {
-                    w.setHeight(w.getHeight() - notchHeight);
+                if (element instanceof AlwaysSelectedEntryListWidget<?> list) {
+                    list.setHeight(list.getHeight() - notchHeight);
+                    list.setScrollY(0);
                 }
             }
         }
@@ -56,7 +58,7 @@ public class PresetsScreenMixin extends ScreenMixin {
 //        return context.drawTextWithShadow(renderer, text, x, y + notchHeight, color);
 //    }
 
-    // for 1.21.6-8
+    // for 1.21.6-10
     @Redirect(
             method = "render",
             at = @At(

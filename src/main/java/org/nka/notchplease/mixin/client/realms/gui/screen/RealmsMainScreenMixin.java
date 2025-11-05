@@ -32,8 +32,9 @@ public class RealmsMainScreenMixin {
                         || element.getMessage().toString().contains("news"))
                 {
                     element.setY(element.getY() + notchHeight);
-                    if (element instanceof AlwaysSelectedEntryListWidget<?>) {
-                        element.setHeight(element.getHeight() - notchHeight);
+                    if (element instanceof AlwaysSelectedEntryListWidget<?> list) {
+                        list.setHeight(list.getHeight() - notchHeight);
+                        list.setScrollY(0);
                     }
                 }
             });

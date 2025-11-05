@@ -1,7 +1,9 @@
 package org.nka.notchplease.mixin.client.gui.screen.world;
 
 import net.minecraft.client.gui.screen.world.CustomizeFlatLevelScreen;
+import net.minecraft.client.gui.widget.AlwaysSelectedEntryListWidget;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.gui.widget.TextWidget;
 import net.minecraft.client.gui.widget.ThreePartsLayoutWidget;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -22,17 +24,15 @@ public class CustomizeFlatLevelScreenMixin {
     private void onRefreshWidgetPositions(CallbackInfo ci) {
         int notchHeight = getScaledNotchHeight();
         if (notchHeight == -1) return;
-        if (this.layout != null) {
-            this.layout.forEachChild((element) -> {
-                if (!(element instanceof ButtonWidget))
-                {
-                    element.setY(element.getY() + notchHeight);
-//                    System.out.println("caught: " + element + " " + element.getMessage());
-                    if (element.toString().contains("$") && element.getMessage().toString().contains("empty")) {
-                        element.setHeight(element.getHeight() - notchHeight);
-                    }
-                }
-            });
-        }
+        this.layout.forEachChild((element) -> {
+            if (element instanceof TextWidget tw) {
+                tw.setY(tw.getY() + notchHeight);
+            }
+            if (element instanceof AlwaysSelectedEntryListWidget<?> list) {
+                list.setY(list.getY() + notchHeight);
+                list.setHeight(list.getHeight() - notchHeight);
+                list.setScrollY(0);
+            }
+        });
     }
 }
