@@ -25,17 +25,17 @@ public class SplashTextRendererMixin {
 //    }
 
     // for 1.21.6-10
-    @ModifyArg(
-            method = "render",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lorg/joml/Matrix3x2fStack;translate(FF)Lorg/joml/Matrix3x2f;"
-            ),
-            index = 1
-    )
-    private float modifyTranslateY(float originalY) {
-        int notchHeight = getScaledNotchHeight();
-        if (notchHeight == -1) return originalY;
-        return originalY + notchHeight;
-    }
+//    @ModifyArg(
+//            method = "render",
+//            at = @At(
+//                    value = "INVOKE",
+//                    target = "Lorg/joml/Matrix3x2fStack;translate(FF)Lorg/joml/Matrix3x2f;"
+//            ),
+//            index = 1
+//    )
+//    private float modifyTranslateY(float originalY) {
+//        int notchHeight = getScaledNotchHeight();
+//        if (notchHeight == -1) return originalY;
+//        return originalY + notchHeight;
+//    }
 }

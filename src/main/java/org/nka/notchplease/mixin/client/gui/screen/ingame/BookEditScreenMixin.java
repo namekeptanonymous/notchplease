@@ -25,19 +25,19 @@ public class BookEditScreenMixin {
         return originalY + notchHeight;
     }
 
-    @ModifyArg(
-            method = "init",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/client/gui/widget/ButtonWidget$Builder;dimensions(IIII)Lnet/minecraft/client/gui/widget/ButtonWidget$Builder;"
-            ),
-            index = 1
-    )
-    private int adjustCloseButton(int originalY) {
-        int notchHeight = getScaledNotchHeight();
-        if (notchHeight == -1) return originalY;
-        return originalY + notchHeight;
-    }
+//    @ModifyArg(
+//            method = "init",
+//            at = @At(
+//                    value = "INVOKE",
+//                    target = "Lnet/minecraft/client/gui/widget/ButtonWidget$Builder;dimensions(IIII)Lnet/minecraft/client/gui/widget/ButtonWidget$Builder;"
+//            ),
+//            index = 1
+//    )
+//    private int adjustCloseButton(int originalY) {
+//        int notchHeight = getScaledNotchHeight();
+//        if (notchHeight == -1) return originalY;
+//        return originalY + notchHeight;
+//    }
 
     // for 1.21.4-5
 //    @Redirect(
@@ -154,21 +154,21 @@ public class BookEditScreenMixin {
 //    }
 
     // for 1.21.6-10
-    @Redirect(
-            method = "render",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/client/gui/DrawContext;drawText(Lnet/minecraft/client/font/TextRenderer;Lnet/minecraft/text/Text;IIIZ)V"
-            )
-    )
-    private void redirectText_void(DrawContext context, TextRenderer renderer, Text text, int x, int y, int color, boolean shadow) {
-        int notchHeight = getScaledNotchHeight();
-        if (notchHeight == -1) {
-            context.drawText(renderer, text, x, y, color, shadow);
-            return;
-        }
-        context.drawText(renderer, text, x, y + notchHeight, color, shadow);
-    }
+//    @Redirect(
+//            method = "render",
+//            at = @At(
+//                    value = "INVOKE",
+//                    target = "Lnet/minecraft/client/gui/DrawContext;drawText(Lnet/minecraft/client/font/TextRenderer;Lnet/minecraft/text/Text;IIIZ)V"
+//            )
+//    )
+//    private void redirectText_void(DrawContext context, TextRenderer renderer, Text text, int x, int y, int color, boolean shadow) {
+//        int notchHeight = getScaledNotchHeight();
+//        if (notchHeight == -1) {
+//            context.drawText(renderer, text, x, y, color, shadow);
+//            return;
+//        }
+//        context.drawText(renderer, text, x, y + notchHeight, color, shadow);
+//    }
     @ModifyArg(
             method = "init",
             at = @At(
