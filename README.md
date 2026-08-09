@@ -1,8 +1,8 @@
-<img src="src/main/resources/assets/notchplease/icon.png" width="128">
+<img src="src/main/resources/assets/notchplease/icon.png" width="128" alt="Icon of this Minecraft mod that has the text 'notch, please!'">
 
 # Notch, Please!
 
-A simple Fabric mod for Minecraft 1.21.4 – 1.21.10 that aims to make *vanilla* UI elements fit better on Apple's notched MacBooks when in fullscreen mode.
+A simple Fabric mod for Minecraft 1.21.4 – 1.21.11 that aims to make *vanilla* UI elements fit better on Apple's notched MacBooks when in fullscreen mode.
 
 ![pack-diff-s](https://github.com/user-attachments/assets/747db53a-52d4-42c1-b66f-218aadb4e0e2)
 
@@ -36,10 +36,8 @@ Notch, Please! uses the [Gradle build tool](https://gradle.org/) and can be buil
 ### Build Requirements
 
 - OpenJDK 21
-- Gradle 8.x
+- Gradle 9.6.1
 
 ## 📜 License
 
 Except where otherwise stated, the content of this repository is provided under the [GPL v3](LICENSE) license by [namekeptanonymous](https://www.namekeptanonymous.me/).
-
-<a href="https://buymeacoffee.com/justalilguy"><img alt="buymeacoffee-singular" height="56" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/donate/buymeacoffee-singular_vector.svg"></a>

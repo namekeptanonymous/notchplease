@@ -2,10 +2,12 @@ package org.nka.notchplease.mixin.client.gui.screen.ingame;
 
 import net.minecraft.client.gui.screen.ingame.LecternScreen;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
+//import org.spongepowered.asm.mixin.injection.At;
+//import org.spongepowered.asm.mixin.injection.Inject;
+//import org.spongepowered.asm.mixin.injection.ModifyArg;
+//import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import static org.nka.notchplease.Notchplease.getScaledNotchHeight;
+//import static org.nka.notchplease.Notchplease.getScaledNotchHeight;
 
 @Mixin(LecternScreen.class)
 public class LecternScreenMixin {
