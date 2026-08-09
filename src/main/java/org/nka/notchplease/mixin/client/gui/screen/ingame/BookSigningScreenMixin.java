@@ -14,7 +14,6 @@ import static org.nka.notchplease.Notchplease.getScaledNotchHeight;
 
 @Mixin(BookSigningScreen.class)
 public class BookSigningScreenMixin {
-    // This entire file is for 1.21.6-8 only.
     @ModifyArg(
             method = "init",
             at = @At(

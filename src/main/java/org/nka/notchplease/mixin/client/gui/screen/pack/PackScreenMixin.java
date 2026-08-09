@@ -31,8 +31,6 @@ public abstract class PackScreenMixin {
         int notchHeight = getScaledNotchHeight();
         if (notchHeight == -1) return;
 
-//        this.availablePackList.setY(this.availablePackList.getY() + notchHeight);
-//        this.selectedPackList.setY(this.selectedPackList.getY() + notchHeight);
         this.layout.forEachChild((element) -> {
             if (!(element instanceof ButtonWidget)) {
                 element.setY(element.getY() + notchHeight);

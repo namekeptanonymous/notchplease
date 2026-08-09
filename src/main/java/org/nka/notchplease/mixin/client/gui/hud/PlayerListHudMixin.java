@@ -13,37 +13,6 @@ import static org.nka.notchplease.Notchplease.getScaledNotchHeight;
 
 @Mixin(value = PlayerListHud.class)
 public class PlayerListHudMixin {
-    // for 1.21.4-5
-//    @Redirect(
-//            method = "render",
-//            at = @At(
-//                    value = "INVOKE",
-//                    target = "Lnet/minecraft/client/gui/DrawContext;drawTextWithShadow(Lnet/minecraft/client/font/TextRenderer;Lnet/minecraft/text/Text;III)I"
-//            )
-//    )
-//    private int redirectTextWithShadow_int(DrawContext context, TextRenderer renderer, Text text, int x, int y, int color) {
-//        int notchHeight = getScaledNotchHeight();
-//        if (notchHeight == -1) {
-//            return context.drawTextWithShadow(renderer, text, x, y, color);
-//        }
-//        return context.drawTextWithShadow(renderer, text, x, y + notchHeight, color);
-//    }
-//    @Redirect(
-//            method = "render",
-//            at = @At(
-//                    value = "INVOKE",
-//                    target = "Lnet/minecraft/client/gui/DrawContext;drawTextWithShadow(Lnet/minecraft/client/font/TextRenderer;Lnet/minecraft/text/OrderedText;III)I"
-//            )
-//    )
-//    private int redirectTextWithShadow_int(DrawContext context, TextRenderer renderer, OrderedText text, int x, int y, int color) {
-//        int notchHeight = getScaledNotchHeight();
-//        if (notchHeight == -1) {
-//            return context.drawTextWithShadow(renderer, text, x, y, color);
-//        }
-//        return context.drawTextWithShadow(renderer, text, x, y + notchHeight, color);
-//    }
-
-    // for 1.21.6-10
     @Redirect(
             method = "render",
             at = @At(
@@ -108,61 +77,6 @@ public class PlayerListHudMixin {
         args.set(3, y2 + notchHeight);
     }
 
-    // for 1.21.4-5
-//    @ModifyArg(
-//            method = "renderLatencyIcon",
-//            at = @At(
-//                    value = "INVOKE",
-//                    target = "Lnet/minecraft/client/gui/DrawContext;drawGuiTexture(Ljava/util/function/Function;Lnet/minecraft/util/Identifier;IIII)V"
-//            ),
-//            index = 3
-//    )
-//    private int adjustRenderLatencyIconY(int originalY) {
-//        int notchHeight = getScaledNotchHeight();
-//        if (notchHeight == -1) return originalY;
-//        return originalY + notchHeight;
-//    }
-//    @ModifyArg(
-//            method = "renderScoreboardObjective",
-//            at = @At(
-//                    value = "INVOKE",
-//                    target = "Lnet/minecraft/client/gui/DrawContext;drawTextWithShadow(Lnet/minecraft/client/font/TextRenderer;Lnet/minecraft/text/Text;III)I"
-//            ),
-//            index = 3
-//    )
-//    private int adjustRenderScoreboardObjective(int originalY) {
-//        int notchHeight = getScaledNotchHeight();
-//        if (notchHeight == -1) return originalY;
-//        return originalY + notchHeight;
-//    }
-//    @ModifyArg(
-//            method = "renderHearts",
-//            at = @At(
-//                    value = "INVOKE",
-//                    target = "Lnet/minecraft/client/gui/DrawContext;drawTextWithShadow(Lnet/minecraft/client/font/TextRenderer;Lnet/minecraft/text/Text;III)I"
-//            ),
-//            index = 3
-//    )
-//    private int adjustRenderHeartsText(int originalY) {
-//        int notchHeight = getScaledNotchHeight();
-//        if (notchHeight == -1) return originalY;
-//        return originalY + notchHeight;
-//    }
-//    @ModifyArg(
-//            method = "renderHearts",
-//            at = @At(
-//                    value = "INVOKE",
-//                    target = "Lnet/minecraft/client/gui/DrawContext;drawGuiTexture(Ljava/util/function/Function;Lnet/minecraft/util/Identifier;IIII)V"
-//            ),
-//            index = 3
-//    )
-//    private int adjustRenderHeartsTexture(int originalY) {
-//        int notchHeight = getScaledNotchHeight();
-//        if (notchHeight == -1) return originalY;
-//        return originalY + notchHeight;
-//    }
-
-    // for 1.21.6-10
     @ModifyArg(
             method = "renderLatencyIcon",
             at = @At(
