@@ -1,6 +1,8 @@
 package org.nka.notchplease.mixin.client.gui.screens.telemetry;
 
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.Checkbox;
+import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.layouts.HeaderAndFooterLayout;
 import net.minecraft.client.gui.screens.telemetry.TelemetryEventWidget;
 import net.minecraft.client.gui.screens.telemetry.TelemetryInfoScreen;
@@ -23,13 +25,13 @@ public class TelemetryInfoScreenMixin {
     private void onRepositionElements(CallbackInfo ci) {
         int notchHeight = getScaledNotchHeight();
         if (notchHeight == -1) return;
-        this.layout.visitChildren((element) -> {
+        this.layout.visitWidgets((element) -> {
 //            System.out.println("all: " + element + " " + element.toString());
-            if (!element.toString().contains("telemetry.button")
+            if (!(element instanceof Checkbox || element instanceof CycleButton<?>)
                     && (
                             !(element instanceof Button)
-                            || ((Button) element).getMessage().toString().contains("privacy")
-                            || ((Button) element).getMessage().toString().contains("feedback")
+                            || element.getMessage().toString().contains("privacy")
+                            || element.getMessage().toString().contains("feedback")
                     ))
             {
                 element.setY(element.getY() + notchHeight);

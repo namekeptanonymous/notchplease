@@ -9,6 +9,7 @@
     "client.gui.components.PlayerTabOverlayMixin",
     "client.gui.components.SplashRendererMixin",
     "client.gui.components.tabs.TabNavigationBarMixin",
+    "client.gui.components.toasts.SystemToastMixin",
     "client.gui.screens.CreateBuffetWorldScreenMixin",
     "client.gui.screens.CreateFlatWorldScreenMixin",
     "client.gui.screens.CreditsAndAttributionScreenMixin",
