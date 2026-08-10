@@ -1,9 +1,8 @@
 package org.nka.notchplease.mixin.client.gui.screen.world;
 
-import net.minecraft.client.gui.screen.world.EditGameRulesScreen;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.widget.ThreePartsLayoutWidget;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.layouts.HeaderAndFooterLayout;
+import net.minecraft.client.gui.screens.worldselection.AbstractGameRulesScreen;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -13,23 +12,23 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import static org.nka.notchplease.Notchplease.getScaledNotchHeight;
 
-@Mixin(EditGameRulesScreen.class)
+@Mixin(AbstractGameRulesScreen.class)
 public class EditGameRulesScreenMixin {
     @Shadow
     @Final
-    ThreePartsLayoutWidget layout;
+    protected HeaderAndFooterLayout layout;
 
-    @Inject(method = "refreshWidgetPositions", at = @At("TAIL"))
-    private void onRefreshWidgetPositions(CallbackInfo ci) {
+    @Inject(method = "repositionElements", at = @At("TAIL"))
+    private void onRepositionElements(CallbackInfo ci) {
         int notchHeight = getScaledNotchHeight();
         if (notchHeight == -1) return;
-        this.layout.forEachChild((element) -> {
-            if (!(element instanceof ButtonWidget))
+        this.layout.visitWidgets((element) -> {
+            if (!(element instanceof Button))
             {
                 element.setY(element.getY() + notchHeight);
-                if (element instanceof EditGameRulesScreen.RuleListWidget) {
-                    element.setHeight(element.getHeight() - notchHeight);
-                    ((EditGameRulesScreen.RuleListWidget) element).setScrollY(0);
+                if (element instanceof AbstractGameRulesScreen.RuleList) {
+                    ((AbstractGameRulesScreen.RuleList) element).setHeight(element.getHeight() - notchHeight);
+                    ((AbstractGameRulesScreen.RuleList) element).setScrollAmount(0);
                 }
             }
         });

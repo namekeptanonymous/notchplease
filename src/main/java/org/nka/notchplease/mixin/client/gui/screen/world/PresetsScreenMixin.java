@@ -1,13 +1,13 @@
 package org.nka.notchplease.mixin.client.gui.screen.world;
 
-import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.Element;
-import net.minecraft.client.gui.screen.world.PresetsScreen;
-import net.minecraft.client.gui.widget.AlwaysSelectedEntryListWidget;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.widget.ClickableWidget;
-import net.minecraft.text.Text;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.ObjectSelectionList;
+import net.minecraft.client.gui.components.events.GuiEventListener;
+import net.minecraft.client.gui.screens.PresetFlatWorldScreen;
+import net.minecraft.network.chat.Component;
 import org.nka.notchplease.mixin.client.gui.screen.ScreenMixin;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -19,10 +19,9 @@ import java.util.List;
 
 import static org.nka.notchplease.Notchplease.getScaledNotchHeight;
 
-@Mixin(PresetsScreen.class)
+@Mixin(PresetFlatWorldScreen.class)
 public class PresetsScreenMixin extends ScreenMixin {
-
-    protected PresetsScreenMixin(List<Element> children) {
+    protected PresetsScreenMixin(List<GuiEventListener> children) {
         super(children);
     }
 
@@ -31,46 +30,46 @@ public class PresetsScreenMixin extends ScreenMixin {
         int notchHeight = getScaledNotchHeight();
         if (notchHeight == -1) return;
 
-        for (Element element : this.getChildren()) {
-            if (element instanceof ClickableWidget w && !(element instanceof ButtonWidget)) {
+        for (GuiEventListener element : this.getChildren()) {
+            if (element instanceof AbstractWidget w && !(element instanceof Button)) {
                 w.setY(w.getY() + notchHeight);
-                if (element instanceof AlwaysSelectedEntryListWidget<?> list) {
+                if (element instanceof ObjectSelectionList<?> list) {
                     list.setHeight(list.getHeight() - notchHeight);
-                    list.setScrollY(0);
+                    list.setScrollAmount(0);
                 }
             }
         }
     }
-    
+
     @Redirect(
-            method = "render",
+            method = "extractRenderState",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/client/gui/DrawContext;drawTextWithShadow(Lnet/minecraft/client/font/TextRenderer;Lnet/minecraft/text/Text;III)V"
+                    target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;text(Lnet/minecraft/client/gui/Font;Lnet/minecraft/network/chat/Component;III)V"
             )
     )
-    private void redirectTextWithShadow_void(DrawContext context, TextRenderer renderer, Text text, int x, int y, int color) {
+    private void redirectText(GuiGraphicsExtractor instance, Font font, Component str, int x, int y, int color) {
         int notchHeight = getScaledNotchHeight();
         if (notchHeight == -1) {
-            context.drawTextWithShadow(renderer, text, x, y, color);
+            instance.text(font, str, x, y, color);
             return;
         }
-        context.drawTextWithShadow(renderer, text, x, y + notchHeight, color);
+        instance.text(font, str, x, y + notchHeight, color);
     }
 
     @Redirect(
-            method = "render",
+            method = "extractRenderState",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/client/gui/DrawContext;drawCenteredTextWithShadow(Lnet/minecraft/client/font/TextRenderer;Lnet/minecraft/text/Text;III)V"
+                    target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;centeredText(Lnet/minecraft/client/gui/Font;Lnet/minecraft/network/chat/Component;III)V"
             )
     )
-    private void redirectCenteredTextWithShadow(DrawContext context, TextRenderer renderer, Text text, int x, int y, int color) {
+    private void redirectCenteredText(GuiGraphicsExtractor instance, Font font, Component text, int x, int y, int color) {
         int notchHeight = getScaledNotchHeight();
         if (notchHeight == -1) {
-            context.drawCenteredTextWithShadow(renderer, text, x, y, color);
+            instance.centeredText(font, text, x, y, color);
             return;
         }
-        context.drawCenteredTextWithShadow(renderer, text, x, y + notchHeight, color);
+        instance.centeredText(font, text, x, y + notchHeight, color);
     }
 }

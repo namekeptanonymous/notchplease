@@ -1,24 +1,22 @@
 package org.nka.notchplease.mixin.client.gui.widget;
 
-import net.minecraft.client.gui.widget.TabNavigationWidget;
+import net.minecraft.client.gui.components.tabs.TabNavigationBar;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.*;
 
 import static org.nka.notchplease.Notchplease.getScaledNotchHeight;
 
-@Mixin(TabNavigationWidget.class)
+@Mixin(TabNavigationBar.class)
 public class TabNavigationWidgetMixin {
-
-    // Intercept the call to grid.setY(0) in the init() method
     @ModifyArg(
-            method = "init",
+            method = "arrangeElements",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/client/gui/widget/DirectionalLayoutWidget;setY(I)V"
+                    target = "Lnet/minecraft/client/gui/layouts/LinearLayout;setY(I)V"
             ),
             index = 0
     )
-    private int modifyGridY(int originalY) {
+    private int modifyElementsY(int originalY) {
         int notchHeight = getScaledNotchHeight();
         if (notchHeight == -1) return originalY;
         return originalY + notchHeight;

@@ -1,9 +1,9 @@
 package org.nka.notchplease.mixin.client.gui.screen;
 
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.LogoDrawer;
-import net.minecraft.client.gui.screen.SplashTextRenderer;
-import net.minecraft.client.gui.screen.TitleScreen;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.components.LogoRenderer;
+import net.minecraft.client.gui.components.SplashRenderer;
+import net.minecraft.client.gui.screens.TitleScreen;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -16,25 +16,26 @@ import static org.nka.notchplease.Notchplease.getScaledNotchHeight;
 public class TitleScreenMixin {
     @Shadow
     @Nullable
-    private SplashTextRenderer splashText;
+    private SplashRenderer splash;
+
     @Redirect(
-            method = "render",
+            method = "extractRenderState",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/client/gui/LogoDrawer;draw(Lnet/minecraft/client/gui/DrawContext;IF)V"
+                    target = "Lnet/minecraft/client/gui/components/LogoRenderer;extractRenderState(Lnet/minecraft/client/gui/GuiGraphicsExtractor;IF)V"
             )
     )
-    private void redirectLogoDraw(LogoDrawer drawer, DrawContext context, int width, float alpha) {
+    private void redirectLogoDraw(LogoRenderer instance, GuiGraphicsExtractor graphics, int width, float alpha) {
         int notchHeight = getScaledNotchHeight();
         if (notchHeight == -1) {
-            drawer.draw(context, width, alpha);
+            instance.extractRenderState(graphics, width, alpha);
             return;
         }
         // 30, as Minecraft uses this value when y isn't given to the method.
         // Which is how the logo is drawn for some reason on the title screen.
-        //    public void draw(DrawContext context, int screenWidth, float alpha) {
-        //        this.draw(context, screenWidth, alpha, 30);
-        //    }
-        drawer.draw(context, width, alpha, 30 + notchHeight);
+        // public void extractRenderState(final GuiGraphicsExtractor graphics, final int width, final float alpha) {
+        //     this.extractRenderState(graphics, width, alpha, 30);
+        // }
+        instance.extractRenderState(graphics, width, alpha, 30 + notchHeight);
     }
 }

@@ -1,8 +1,9 @@
 package org.nka.notchplease.mixin.client.gui.screen.option;
 
-import net.minecraft.client.gui.screen.option.CreditsAndAttributionScreen;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.widget.ThreePartsLayoutWidget;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.StringWidget;
+import net.minecraft.client.gui.layouts.HeaderAndFooterLayout;
+import net.minecraft.client.gui.screens.CreditsAndAttributionScreen;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -16,29 +17,26 @@ import static org.nka.notchplease.Notchplease.getScaledNotchHeight;
 public class CreditsAndAttributionScreenMixin {
     @Shadow
     @Final
-    private ThreePartsLayoutWidget layout;
+    private HeaderAndFooterLayout layout;
 
     @Inject(method = "init", at = @At("TAIL"))
     private void onInit(CallbackInfo ci) {
         int notchHeight = getScaledNotchHeight();
         if (notchHeight == -1) return;
-        this.layout.forEachChild((element) -> {
-            if (!(element instanceof ButtonWidget)) {
+        this.layout.visitChildren((element) -> {
+            if (!(element instanceof Button)) {
                 element.setY(element.getY() + notchHeight);
             }
         });
     }
 
-    @Inject(method = "refreshWidgetPositions", at = @At("TAIL"))
-    private void onRefreshWidgetPositions(CallbackInfo ci) {
+    @Inject(method = "repositionElements", at = @At("TAIL"))
+    private void onRepositionElements(CallbackInfo ci) {
         int notchHeight = getScaledNotchHeight();
         if (notchHeight == -1) return;
-        this.layout.forEachChild((element) -> {
-//            System.out.println("all: " + element + element.getMessage());
-            if (!(element instanceof ButtonWidget)) {
-//                System.out.println("caught: " + element + element.getMessage());
+        this.layout.visitChildren((element) -> {
+            if (element instanceof StringWidget)
                 element.setY(element.getY() + notchHeight);
-            }
         });
     }
 }

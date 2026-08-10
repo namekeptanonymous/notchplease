@@ -1,9 +1,9 @@
 package org.nka.notchplease.mixin.client.gui.screen;
 
-import net.minecraft.client.gui.screen.StatsScreen;
-import net.minecraft.client.gui.widget.AlwaysSelectedEntryListWidget;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.widget.ThreePartsLayoutWidget;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.tabs.TabNavigationBar;
+import net.minecraft.client.gui.layouts.HeaderAndFooterLayout;
+import net.minecraft.client.gui.screens.achievement.StatsScreen;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,24 +19,25 @@ import static org.nka.notchplease.Notchplease.getScaledNotchHeight;
 public class StatsScreenMixin {
     @Final
     @Shadow
-    ThreePartsLayoutWidget layout;
+    private HeaderAndFooterLayout layout;
+
     @Nullable
     @Unique
-    private AlwaysSelectedEntryListWidget<?> selectedList;
+    private TabNavigationBar tabNavigationBar;
 
-    @Inject(method = "refreshWidgetPositions", at = @At("TAIL"))
-    private void onRefreshWidgetPositions(CallbackInfo ci) {
+    @Inject(method = "repositionElements", at = @At("TAIL"))
+    private void onRepositionElements(CallbackInfo ci) {
         int notchHeight = getScaledNotchHeight();
         if (notchHeight == -1) return;
-        this.layout.forEachChild((element) -> {
-            if (!(element instanceof ButtonWidget)) {
+        this.layout.visitChildren((element) -> {
+            if (!(element instanceof Button)) {
                 element.setY(element.getY() + notchHeight);
             }
         });
-        if (this.selectedList != null) {
-            this.selectedList.setY(this.selectedList.getY() + notchHeight);
-            this.selectedList.setHeight(this.selectedList.getHeight() - notchHeight);
-            this.selectedList.setScrollY(0);
-        }
+//        if (this.tabNavigationBar != null) {
+//            this.tabNavigationBar.setY(this.tabNavigationBar.getY() + notchHeight);
+//            this.tabNavigationBar.setHeight(this.tabNavigationBar.getHeight() - notchHeight);
+//            this.tabNavigationBar.setScrollAmount(0);
+//        }
     }
 }

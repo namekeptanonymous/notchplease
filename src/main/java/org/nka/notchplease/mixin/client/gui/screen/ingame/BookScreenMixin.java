@@ -1,16 +1,16 @@
 package org.nka.notchplease.mixin.client.gui.screen.ingame;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
-import net.minecraft.client.gui.screen.ingame.BookScreen;
+import net.minecraft.client.gui.screens.inventory.BookViewScreen;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 import static org.nka.notchplease.Notchplease.getScaledNotchHeight;
 
-@Mixin(BookScreen.class)
+@Mixin(BookViewScreen.class)
 public class BookScreenMixin {
     @ModifyReturnValue(
-            method = "getTop",
+            method = "backgroundTop",
             at = @At("RETURN")
     )
     private int adjustGetTop(int original) {

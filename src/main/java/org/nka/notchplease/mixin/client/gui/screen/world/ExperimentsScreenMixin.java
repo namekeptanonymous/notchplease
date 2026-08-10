@@ -1,8 +1,8 @@
 package org.nka.notchplease.mixin.client.gui.screen.world;
 
-import net.minecraft.client.gui.screen.world.ExperimentsScreen;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.widget.ThreePartsLayoutWidget;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.layouts.HeaderAndFooterLayout;
+import net.minecraft.client.gui.screens.worldselection.ExperimentsScreen;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
@@ -18,19 +18,18 @@ public class ExperimentsScreenMixin {
     @Mutable
     @Shadow
     @Final
-    private final ThreePartsLayoutWidget experimentToggleList;
+    private final HeaderAndFooterLayout layout;
 
-    public ExperimentsScreenMixin(ThreePartsLayoutWidget experimentToggleList) {
-        this.experimentToggleList = experimentToggleList;
+    public ExperimentsScreenMixin(HeaderAndFooterLayout layout) {
+        this.layout = layout;
     }
 
-    @Inject(method = "refreshWidgetPositions", at = @At("TAIL"))
-    private void onRefreshWidgetPositions(CallbackInfo ci) {
+    @Inject(method = "repositionElements", at = @At("TAIL"))
+    private void onRepositionElements(CallbackInfo ci) {
         int notchHeight = getScaledNotchHeight();
         if (notchHeight == -1) return;
-        this.experimentToggleList.forEachChild((element) -> {
-            if (!(element instanceof ButtonWidget))
-            {
+        this.layout.visitWidgets((element) -> {
+            if (!(element instanceof Button)) {
                 element.setY(element.getY() + notchHeight);
             }
         });

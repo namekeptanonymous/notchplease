@@ -1,7 +1,7 @@
 package org.nka.notchplease.mixin.client.gui.screen.ingame;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
-import net.minecraft.client.gui.screen.ingame.BookEditScreen;
+import net.minecraft.client.gui.screens.inventory.BookEditScreen;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.*;
 
@@ -13,9 +13,8 @@ public class BookEditScreenMixin {
             method = "init",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/client/gui/widget/EditBoxWidget$Builder;y(I)Lnet/minecraft/client/gui/widget/EditBoxWidget$Builder;"
-            ),
-            index = 0
+                    target = "Lnet/minecraft/client/gui/components/MultiLineEditBox$Builder;setY(I)Lnet/minecraft/client/gui/components/MultiLineEditBox$Builder;"
+            )
     )
     private int adjustBookTextBox(int originalY) {
         int notchHeight = getScaledNotchHeight();
@@ -24,7 +23,7 @@ public class BookEditScreenMixin {
     }
 
     @ModifyReturnValue(
-            method = "getTop",
+            method = "backgroundTop",
             at = @At("RETURN")
     )
     private int adjustGetTop(int original) {

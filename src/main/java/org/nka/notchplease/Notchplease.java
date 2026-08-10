@@ -4,7 +4,7 @@ import com.sun.jna.Library;
 import com.sun.jna.Native;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.Minecraft;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWNativeCocoa;
 import org.lwjgl.glfw.GLFWVidMode;
@@ -45,7 +45,7 @@ public class Notchplease implements ClientModInitializer {
     public static boolean listAvailableResolutions() {
         if (!isMacOS || !isAppleSilicon) return false;
         resolutionHeights = new ArrayList<>();
-        long window = MinecraftClient.getInstance().getWindow().getHandle();
+        long window = Minecraft.getInstance().getWindow().handle();
         long monitor = GLFW.glfwGetWindowMonitor(window);
 
         if (monitor == 0L) {
@@ -75,9 +75,9 @@ public class Notchplease implements ClientModInitializer {
     @Unique
     public static int getScaledNotchHeight() {
         if (!isMacOS || !isAppleSilicon || !listAvailableResolutions()) return -1;
-        int currentHeight = MinecraftClient.getInstance().getWindow().getHeight();
-        boolean isFullScreen = MinecraftClient.getInstance().getWindow().isFullscreen();
-        double currentScale = MinecraftClient.getInstance().getWindow().getScaleFactor();
+        int currentHeight = Minecraft.getInstance().getWindow().getHeight();
+        boolean isFullScreen = Minecraft.getInstance().getWindow().isFullscreen();
+        double currentScale = Minecraft.getInstance().getWindow().getGuiScale();
 
         // if resolution is not set to show notch
         if (currentHeight % 10 == 0 || resolutionHeights == null || !isFullScreen || !isAppleSilicon) return -1;
@@ -131,7 +131,7 @@ public class Notchplease implements ClientModInitializer {
     public static boolean isNativeFullscreen() {
         if (!System.getProperty("os.name").toLowerCase().contains("mac")) return false;
 
-        long windowPtr = MinecraftClient.getInstance().getWindow().getHandle();
+        long windowPtr = Minecraft.getInstance().getWindow().getHandle();
         long nsWindowPtr = GLFWNativeCocoa.glfwGetCocoaWindow(windowPtr);
         if (nsWindowPtr == 0) return false;
 
@@ -144,7 +144,7 @@ public class Notchplease implements ClientModInitializer {
     }
 
     public static void toggleNativeFullscreen() {
-        long windowPtr = MinecraftClient.getInstance().getWindow().getHandle();
+        long windowPtr = Minecraft.getInstance().getWindow().getHandle();
         long nsWindowPtr = GLFWNativeCocoa.glfwGetCocoaWindow(windowPtr);
         Pointer nsWindow = new Pointer(nsWindowPtr);
         Pointer selToggleFullscreen = ObjCRuntime.INSTANCE.sel_registerName("toggleFullScreen:");
@@ -153,12 +153,12 @@ public class Notchplease implements ClientModInitializer {
 
     // since minecraft by default on macOS does not enable Minecraft's built-in fullscreen functionality
     public static void triggerActualFullscreen() {
-        boolean isFullScreen = MinecraftClient.getInstance().getWindow().isFullscreen();
+        boolean isFullScreen = Minecraft.getInstance().getWindow().isFullscreen();
         if (!isFullScreen) {
             if (isNativeFullscreen()) toggleNativeFullscreen();
-            MinecraftClient.getInstance().getWindow().toggleFullscreen();
+            Minecraft.getInstance().getWindow().toggleFullscreen();
         } else {
-            MinecraftClient.getInstance().getWindow().toggleFullscreen();
+            Minecraft.getInstance().getWindow().toggleFullscreen();
             if (!isNativeFullscreen()) toggleNativeFullscreen();
         }
     }

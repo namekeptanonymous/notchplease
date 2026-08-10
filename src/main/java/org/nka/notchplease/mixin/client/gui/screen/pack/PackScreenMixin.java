@@ -1,9 +1,10 @@
 package org.nka.notchplease.mixin.client.gui.screen.pack;
 
-import net.minecraft.client.gui.screen.pack.PackListWidget;
-import net.minecraft.client.gui.screen.pack.PackScreen;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.widget.ThreePartsLayoutWidget;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.layouts.HeaderAndFooterLayout;
+import net.minecraft.client.gui.screens.packs.PackSelectionScreen;
+import net.minecraft.client.gui.screens.packs.TransferableSelectionList;
+import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -13,32 +14,34 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import static org.nka.notchplease.Notchplease.getScaledNotchHeight;
 
-@Mixin(PackScreen.class)
+@Mixin(PackSelectionScreen.class)
 public abstract class PackScreenMixin {
 
-    @Shadow
-    private PackListWidget availablePackList;
+    @Shadow @Nullable
+    private TransferableSelectionList availablePackList;
 
-    @Shadow
-    private PackListWidget selectedPackList;
+    @Shadow @Nullable
+    private TransferableSelectionList selectedPackList;
 
     @Shadow
     @Final
-    private ThreePartsLayoutWidget layout;
+    private HeaderAndFooterLayout layout;
 
-    @Inject(method = "refreshWidgetPositions", at = @At("TAIL"))
-    private void onRefreshWidgetPositions(CallbackInfo ci) {
+    @Inject(method = "repositionElements", at = @At("TAIL"))
+    private void onRepositionElements(CallbackInfo ci) {
         int notchHeight = getScaledNotchHeight();
         if (notchHeight == -1) return;
 
-        this.layout.forEachChild((element) -> {
-            if (!(element instanceof ButtonWidget)) {
+        this.layout.visitWidgets((element) -> {
+            if (!(element instanceof Button)) {
                 element.setY(element.getY() + notchHeight);
             }
         });
+        assert this.availablePackList != null;
+        assert this.selectedPackList != null;
         this.availablePackList.setHeight(this.availablePackList.getHeight() - notchHeight);
         this.selectedPackList.setHeight(this.selectedPackList.getHeight() - notchHeight);
-        this.availablePackList.setScrollY(0);
-        this.selectedPackList.setScrollY(0);
+        this.availablePackList.setScrollAmount(0);
+        this.selectedPackList.setScrollAmount(0);
     }
 }

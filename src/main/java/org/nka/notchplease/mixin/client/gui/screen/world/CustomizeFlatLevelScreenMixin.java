@@ -1,10 +1,9 @@
 package org.nka.notchplease.mixin.client.gui.screen.world;
 
-import net.minecraft.client.gui.screen.world.CustomizeFlatLevelScreen;
-import net.minecraft.client.gui.widget.AlwaysSelectedEntryListWidget;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.widget.TextWidget;
-import net.minecraft.client.gui.widget.ThreePartsLayoutWidget;
+import net.minecraft.client.gui.components.ObjectSelectionList;
+import net.minecraft.client.gui.components.StringWidget;
+import net.minecraft.client.gui.layouts.HeaderAndFooterLayout;
+import net.minecraft.client.gui.screens.CreateFlatWorldScreen;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -14,24 +13,24 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import static org.nka.notchplease.Notchplease.getScaledNotchHeight;
 
-@Mixin(CustomizeFlatLevelScreen.class)
+@Mixin(CreateFlatWorldScreen.class)
 public class CustomizeFlatLevelScreenMixin {
     @Shadow
     @Final
-    private ThreePartsLayoutWidget layout;
+    private HeaderAndFooterLayout layout;
 
-    @Inject(method = "refreshWidgetPositions", at = @At("TAIL"))
-    private void onRefreshWidgetPositions(CallbackInfo ci) {
+    @Inject(method = "repositionElements", at = @At("TAIL"))
+    private void onRepositionElements(CallbackInfo ci) {
         int notchHeight = getScaledNotchHeight();
         if (notchHeight == -1) return;
-        this.layout.forEachChild((element) -> {
-            if (element instanceof TextWidget tw) {
-                tw.setY(tw.getY() + notchHeight);
+        this.layout.visitChildren((element) -> {
+            if (element instanceof StringWidget strWdgt) {
+                strWdgt.setY(strWdgt.getY() + notchHeight);
             }
-            if (element instanceof AlwaysSelectedEntryListWidget<?> list) {
+            if (element instanceof ObjectSelectionList<?> list) {
                 list.setY(list.getY() + notchHeight);
                 list.setHeight(list.getHeight() - notchHeight);
-                list.setScrollY(0);
+                list.setScrollAmount(0);
             }
         });
     }

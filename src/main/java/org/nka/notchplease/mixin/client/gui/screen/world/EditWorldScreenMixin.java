@@ -1,9 +1,9 @@
 package org.nka.notchplease.mixin.client.gui.screen.world;
 
-import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.world.EditWorldScreen;
-import net.minecraft.text.Text;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.screens.worldselection.EditWorldScreen;
+import net.minecraft.network.chat.Component;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.*;
 
@@ -12,18 +12,18 @@ import static org.nka.notchplease.Notchplease.getScaledNotchHeight;
 @Mixin(EditWorldScreen.class)
 public class EditWorldScreenMixin {
     @Redirect(
-            method = "render",
+            method = "extractRenderState",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/client/gui/DrawContext;drawCenteredTextWithShadow(Lnet/minecraft/client/font/TextRenderer;Lnet/minecraft/text/Text;III)V"
+                    target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;centeredText(Lnet/minecraft/client/gui/Font;Lnet/minecraft/network/chat/Component;III)V"
             )
     )
-    private void redirectCenteredTextWithShadow(DrawContext context, TextRenderer renderer, Text text, int x, int y, int color) {
+    private void redirectCenteredText(GuiGraphicsExtractor instance, Font font, Component text, int x, int y, int color) {
         int notchHeight = getScaledNotchHeight();
         if (notchHeight == -1) {
-            context.drawCenteredTextWithShadow(renderer, text, x, y, color);
+            instance.centeredText(font, text, x, y, color);
             return;
         }
-        context.drawCenteredTextWithShadow(renderer, text, x, y + notchHeight, color);
+        instance.centeredText(font, text, x, y + notchHeight, color);
     }
 }

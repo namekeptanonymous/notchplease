@@ -1,10 +1,10 @@
 package org.nka.notchplease.mixin.client.gui.screen.ingame;
 
-import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.ingame.BookSigningScreen;
-import net.minecraft.text.StringVisitable;
-import net.minecraft.text.Text;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.screens.inventory.BookSignScreen;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.FormattedText;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -12,13 +12,13 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 import static org.nka.notchplease.Notchplease.getScaledNotchHeight;
 
-@Mixin(BookSigningScreen.class)
+@Mixin(BookSignScreen.class)
 public class BookSigningScreenMixin {
     @ModifyArg(
             method = "init",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/client/gui/widget/ButtonWidget$Builder;dimensions(IIII)Lnet/minecraft/client/gui/widget/ButtonWidget$Builder;"
+                    target = "Lnet/minecraft/client/gui/components/Button$Builder;bounds(IIII)Lnet/minecraft/client/gui/components/Button$Builder;"
             ),
             index = 1
     )
@@ -32,7 +32,7 @@ public class BookSigningScreenMixin {
             method = "init",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/client/gui/widget/TextFieldWidget;<init>(Lnet/minecraft/client/font/TextRenderer;IIIILnet/minecraft/text/Text;)V"
+                    target = "Lnet/minecraft/client/gui/components/EditBox;<init>(Lnet/minecraft/client/gui/Font;IIIILnet/minecraft/network/chat/Component;)V"
             ),
             index = 2
     )
@@ -43,42 +43,42 @@ public class BookSigningScreenMixin {
     }
 
    @Redirect(
-           method = "render",
+           method = "extractRenderState",
            at = @At(
                    value = "INVOKE",
-                   target = "Lnet/minecraft/client/gui/DrawContext;drawText(Lnet/minecraft/client/font/TextRenderer;Lnet/minecraft/text/Text;IIIZ)V"
+                   target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;text(Lnet/minecraft/client/gui/Font;Lnet/minecraft/network/chat/Component;IIIZ)V"
            )
    )
-   private void redirectText_void(DrawContext context, TextRenderer renderer, Text text, int x, int y, int color, boolean shadow) {
+   private void redirectLabelText(GuiGraphicsExtractor instance, Font font, Component str, int x, int y, int color, boolean dropShadow) {
        int notchHeight = getScaledNotchHeight();
        if (notchHeight == -1) {
-           context.drawText(renderer, text, x, y, color, shadow);
+           instance.text(font, str, x, y, color, dropShadow);
            return;
        }
-       context.drawText(renderer, text, x, y + notchHeight, color, shadow);
+       instance.text(font, str, x, y + notchHeight, color, dropShadow);
    }
 
     @Redirect(
-            method = "render",
+            method = "extractRenderState",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/client/gui/DrawContext;drawWrappedText(Lnet/minecraft/client/font/TextRenderer;Lnet/minecraft/text/StringVisitable;IIIIZ)V"
+                    target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;textWithWordWrap(Lnet/minecraft/client/gui/Font;Lnet/minecraft/network/chat/FormattedText;IIIIZ)V"
             )
     )
-    private void redirectWrappedText(DrawContext context, TextRenderer renderer, StringVisitable text, int x, int y, int width, int color, boolean shadow) {
+    private void redirectWrappedText(GuiGraphicsExtractor instance, Font font, FormattedText string, int x, int y, int width, int col, boolean dropShadow) {
         int notchHeight = getScaledNotchHeight();
         if (notchHeight == -1) {
-            context.drawWrappedText(renderer, text, x, y, width, color, shadow);
+            instance.textWithWordWrap(font, string, x, y, width, col, dropShadow);
             return;
         }
-        context.drawWrappedText(renderer, text, x, y + notchHeight, width, color, shadow);
+        instance.textWithWordWrap(font, string, x, y + notchHeight, width, col, dropShadow);
     }
 
     @ModifyArg(
-            method = "renderBackground",
+            method = "extractBackground",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/client/gui/DrawContext;drawTexture(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/util/Identifier;IIFFIIII)V"
+                    target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blit(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIFFIIII)V"
             ),
             index = 3
     )

@@ -1,9 +1,9 @@
 package org.nka.notchplease.mixin.client.gui.screen.option;
 
-import net.minecraft.client.gui.screen.option.TelemetryEventWidget;
-import net.minecraft.client.gui.screen.option.TelemetryInfoScreen;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.widget.ThreePartsLayoutWidget;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.layouts.HeaderAndFooterLayout;
+import net.minecraft.client.gui.screens.telemetry.TelemetryEventWidget;
+import net.minecraft.client.gui.screens.telemetry.TelemetryInfoScreen;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -17,25 +17,25 @@ import static org.nka.notchplease.Notchplease.getScaledNotchHeight;
 public class TelemetryInfoScreenMixin {
     @Shadow
     @Final
-    private ThreePartsLayoutWidget layout;
+    private HeaderAndFooterLayout layout;
 
-    @Inject(method = "refreshWidgetPositions", at = @At("TAIL"))
-    private void onRefreshWidgetPositions(CallbackInfo ci) {
+    @Inject(method = "repositionElements", at = @At("TAIL"))
+    private void onRepositionElements(CallbackInfo ci) {
         int notchHeight = getScaledNotchHeight();
         if (notchHeight == -1) return;
-        this.layout.forEachChild((element) -> {
-//            System.out.println("all: " + element + " " + element.getMessage());
-            if (!element.getMessage().toString().contains("telemetry.button")
+        this.layout.visitChildren((element) -> {
+//            System.out.println("all: " + element + " " + element.toString());
+            if (!element.toString().contains("telemetry.button")
                     && (
-                            !(element instanceof ButtonWidget)
-                            || element.getMessage().toString().contains("privacy")
-                            || element.getMessage().toString().contains("feedback")
+                            !(element instanceof Button)
+                            || ((Button) element).getMessage().toString().contains("privacy")
+                            || ((Button) element).getMessage().toString().contains("feedback")
                     ))
             {
                 element.setY(element.getY() + notchHeight);
                 if (element instanceof TelemetryEventWidget tew) {
                     tew.setHeight(tew.getHeight() - notchHeight);
-                    tew.setScrollY(0);
+                    tew.setScrollAmount(0);
                 }
             }
         });

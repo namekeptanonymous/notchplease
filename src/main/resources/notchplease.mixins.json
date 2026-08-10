@@ -2,7 +2,7 @@
   "required": true,
   "minVersion": "0.8",
   "package": "org.nka.notchplease.mixin",
-  "compatibilityLevel": "JAVA_21",
+  "compatibilityLevel": "JAVA_25",
   "client": [
     "client.gui.hud.BossBarHudMixin",
     "client.gui.hud.DebugHudMixin",
@@ -31,10 +31,10 @@
     "client.gui.screen.world.EditWorldScreenMixin",
     "client.gui.screen.world.ExperimentsScreenMixin",
     "client.gui.screen.world.PresetsScreenMixin",
+    "client.gui.screen.world.RestrictionsScreenMixin",
     "client.gui.screen.world.SelectWorldScreenMixin",
-    "client.gui.widget.TabNavigationWidgetMixin",
-    "client.realms.gui.screen.RealmsMainScreenMixin",
-    "client.realms.gui.screen.RealmsPendingInvitesScreenMixin"
+    "client.gui.screen.world.WorldOptionsMixin",
+    "client.gui.widget.TabNavigationWidgetMixin"
   ],
   "injectors": {
     "defaultRequire": 1
