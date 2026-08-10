@@ -27,7 +27,9 @@
   "custom": {
     "modmenu": {
       "links": {
-        "modmenu.github_releases": "https://github.com/namekeptanonymous/notchplease/releases"
+        "modmenu.github_releases": "https://github.com/namekeptanonymous/notchplease/releases",
+        "modmenu.curseforge": "https://www.curseforge.com/minecraft/mc-mods/notch-please",
+        "modmenu.modrinth": "https://modrinth.com/mod/notch-please!"
       },
       "update_checker": false
     }
