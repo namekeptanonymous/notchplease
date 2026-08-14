@@ -4,6 +4,9 @@
 
 A simple Fabric mod for Minecraft 1.21.4 to 26.1.2 that aims to make *vanilla* UI elements fit better on Apple's notched MacBooks when in fullscreen mode.
 
+![Modrinth Downloads](https://img.shields.io/badge/dynamic/json?labelColor=black&color=00AF5C&label=&suffix=%20downloads&query=downloads&url=https%3A%2F%2Fapi.modrinth.com%2Fv2%2Fproject%2FkCP4fDZJ&style=flat&logo=modrinth)
+![CurseForge Downloads](https://cf.way2muchnoise.eu/full_1324958_downloads.svg)
+
 ![pack-diff-s](https://github.com/user-attachments/assets/747db53a-52d4-42c1-b66f-218aadb4e0e2)
 
 ---
